@@ -8,7 +8,10 @@ module Shoppe
       Shoppe::Order.before_confirmation do
         Shoppe::NotificationMailer.order_received(self).deliver_now
       end
-    end
 
+      Shoppe::Order.after_confirmation do
+        Shoppe::NotificationMailer.order_confirmed(self).deliver_now
+      end
+    end
   end
 end
